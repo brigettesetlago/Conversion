@@ -13,55 +13,65 @@ package com.mycompany.unitconverter;
 
 public class UnitConverter {
 
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Accept user inputs
-        System.out.println("Unit Converter Program");
-        System.out.print("Enter the unit you want to convert from (Feet, Pounds, Fahrenheit): ");
+        // // Accept user inputs
+        System.out.print("Enter the unit you want to convert from (Feet/Pounds/Fahrenheit): ");
         String fromUnit = scanner.nextLine().toLowerCase();
-
-        System.out.print("Enter the unit you want to convert to (Meters, Kgs, Celsius): ");
+        System.out.print("Enter the unit you want to convert to (Meters/Kgs/Celsius): ");
         String toUnit = scanner.nextLine().toLowerCase();
-
         System.out.print("Enter the quantity to be converted: ");
         double quantity = scanner.nextDouble();
-        scanner.nextLine(); // Consume the newline character
 
-        // Perform conversion based on user inputs
-        double result = convert(fromUnit, toUnit, quantity);
+         // Perform conversion based on user inputs
+        double ans = convert(fromUnit, toUnit, quantity);
 
-        // Display the result
-        System.out.println("Result: " + quantity + " " + fromUnit + " = " + result + " " + toUnit);
-
-        scanner.close();
+        // Display the answer
+        System.out.println("Answer : " + ans);
+        
     }
-
-    // Conversion method
+ // Conversion method
     private static double convert(String fromUnit, String toUnit, double quantity) {
         switch (fromUnit) {
             case "feet":
-                return feetToMeters(quantity, toUnit);
+                if (toUnit.equals("meters")) {
+                    return feetToMeters(quantity);
+                }
+                System.out.println("Conversion not supported");
+                return 0.0;
             case "pounds":
-                return poundsToKgs(quantity, toUnit);
+                if (toUnit.equals("kgs")) {
+                    return poundsToKgs(quantity);
+                }
+                System.out.println("Conversion not supported");
+                return 0.0;
             case "fahrenheit":
-                return fahrenheitToCelsius(quantity, toUnit);
+                if (toUnit.equals("celsius")) {
+                    return fahrenheitToCelsius(quantity);
+                }
+                System.out.println("Conversion not supported");
+                return 0.0;
             default:
-                System.out.println("Invalid units entered. Please choose from Feet, Pounds, Fahrenheit.");
+                System.out.println("Conversion not supported");
                 return 0.0;
         }
     }
 
-    // Specific conversion methods
-    private static double feetToMeters(double feet, String toUnit) {
-        return toUnit.equals("meters") ? feet * 0.3048 : 0.0;
+    private static double feetToMeters(double feet) {
+        // Conversion formula: 1 foot = 0.3048 meters
+        return feet * 0.3048;
     }
 
-    private static double poundsToKgs(double pounds, String toUnit) {
-        return toUnit.equals("kgs") ? pounds * 0.453592 : 0.0;
+    private static double poundsToKgs(double pounds) {
+        // Conversion formula: 1 pound = 0.453592 kgs
+        return pounds * 0.453592;
     }
 
-    private static double fahrenheitToCelsius(double fahrenheit, String toUnit) {
-        return toUnit.equals("celsius") ? (fahrenheit - 32) * 5/9 : 0.0;
+    private static double fahrenheitToCelsius(double fahrenheit) {
+        // Conversion formula: (F - 32) * 5/9
+        return (fahrenheit - 32) * 5 / 9;
     }
 }
+
